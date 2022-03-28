@@ -1,9 +1,11 @@
 package com.andysgrabek.dna.user;
 
+import com.andysgrabek.dna.joboffer.JobOffer;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -19,11 +21,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String login;
     private String password;
     private String name;
     private Date creationDate;
+
+    @OneToMany(mappedBy = "user")
+    private Set<JobOffer> jobOffers;
 
     public void setPassword(String password) {
         this.password = password;
@@ -37,7 +42,7 @@ public class User {
         this.creationDate = creationDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -55,5 +60,9 @@ public class User {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public Set<JobOffer> getJobOffers() {
+        return jobOffers;
     }
 }
