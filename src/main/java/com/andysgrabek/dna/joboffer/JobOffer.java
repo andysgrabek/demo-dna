@@ -21,11 +21,11 @@ public class JobOffer {
     @JoinColumn(name="user", nullable = false)
     private User user;
 
-    public JobOffer(JobOfferCategory category, Date startDate, Date endDate) {
+    public JobOffer(JobOfferCategory category, Date startDate, Date endDate, User user) {
         this.category = category;
         this.startDate = startDate;
         this.endDate = endDate;
-        //this.user = user;
+        this.user = user;
     }
 
     public User getUser() {

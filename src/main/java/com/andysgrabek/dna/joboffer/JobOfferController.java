@@ -10,33 +10,21 @@ import java.util.Objects;
 @RestController
 public class JobOfferController {
 
-    private final JobOfferRepository jobOfferRepository;
+    private final JobOfferService jobOfferService;
 
-
-    public JobOfferController(JobOfferRepository jobOfferRepository) {
-        this.jobOfferRepository = jobOfferRepository;
+    public JobOfferController(JobOfferService jobOfferService) {
+        this.jobOfferService = jobOfferService;
     }
 
     @PostMapping(value = "/offer")
-    public JobOffer postOffer(@RequestBody JobOffer jobOffer) {
-        return jobOfferRepository.saveAndFlush(jobOffer);
+    public JobOfferDto postOffer(@RequestBody JobOfferDto jobOffer) {
+        return jobOfferService.createOffer(jobOffer);
     }
 
     @GetMapping(value = "/offer")
     public List<JobOfferDto> getOffers(@RequestParam(defaultValue = "") String employerName,
                                     @RequestParam(defaultValue = "") Integer category) {
-        //convert to proper query
-        return jobOfferRepository
-                .findAll()
-                .stream()
-                .filter(offer -> Objects.isNull(employerName) || !employerName.isEmpty() || offer
-                        .getUser()
-                        .getName().toLowerCase(Locale.ROOT)
-                        .contains(employerName.toLowerCase(Locale.ROOT)))
-                .filter(offer -> Objects.isNull(category) || Objects.equals(category, offer.getCategory().ordinal()))
-                .map(x -> new JobOfferDto(x.getId(), x.getCategory(), x.getStartDate(), x.getEndDate(),
-                        new UserDto(x.getUser().getId(), x.getUser().getName(), x.getUser().getCreationDate())))
-                .toList();
+        return jobOfferService.findAll(employerName, category);
     }
 
 

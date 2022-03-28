@@ -10,7 +10,11 @@ import java.util.Set;
 @Entity
 public class User {
 
-    protected User() {}
+    public User() { }
+
+    public User(Long id) {
+        this.id = id;
+    }
 
     public User(String login, String password, String name, Date creationDate) {
         this.login = login;
@@ -29,6 +33,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<JobOffer> jobOffers;
+
 
     public void setPassword(String password) {
         this.password = password;
