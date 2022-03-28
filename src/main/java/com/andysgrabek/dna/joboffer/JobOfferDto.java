@@ -58,13 +58,4 @@ public class JobOfferDto implements Serializable {
         return Objects.hash(id, category, startDate, endDate, user);
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "category = " + category + ", " +
-                "startDate = " + startDate + ", " +
-                "endDate = " + endDate + ", " +
-                "user = " + user + ")";
-    }
 }
