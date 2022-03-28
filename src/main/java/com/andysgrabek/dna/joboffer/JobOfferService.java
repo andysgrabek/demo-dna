@@ -11,9 +11,9 @@ import java.util.Objects;
 @Service
 public class JobOfferService {
 
-    private final JobOfferRepository jobOfferRepository;
+    private final JobOfferRepository<Long> jobOfferRepository;
 
-    public JobOfferService(JobOfferRepository jobOfferRepository) {
+    public JobOfferService(JobOfferRepository<Long> jobOfferRepository) {
         this.jobOfferRepository = jobOfferRepository;
     }
 

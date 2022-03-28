@@ -9,14 +9,13 @@ public class Utility {
 
     private Utility() { }
 
-    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+    public static byte[] hashPassword(String password) throws NoSuchAlgorithmException {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
         var md = MessageDigest.getInstance("SHA-512");
         md.update(salt);
-        byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-        return new String(hashedPassword);
+        return md.digest(password.getBytes(StandardCharsets.UTF_8));
     }
 
 }

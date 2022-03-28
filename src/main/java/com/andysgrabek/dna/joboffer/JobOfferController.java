@@ -1,12 +1,10 @@
 package com.andysgrabek.dna.joboffer;
 
-import com.andysgrabek.dna.user.UserDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
+@RequestMapping("/offer")
 @RestController
 public class JobOfferController {
 
@@ -16,12 +14,12 @@ public class JobOfferController {
         this.jobOfferService = jobOfferService;
     }
 
-    @PostMapping(value = "/offer")
+    @PostMapping
     public JobOfferDto postOffer(@RequestBody JobOfferDto jobOffer) {
         return jobOfferService.createOffer(jobOffer);
     }
 
-    @GetMapping(value = "/offer")
+    @GetMapping
     public List<JobOfferDto> getOffers(@RequestParam(defaultValue = "") String employerName,
                                     @RequestParam(defaultValue = "") Integer category) {
         return jobOfferService.findAll(employerName, category);

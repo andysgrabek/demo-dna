@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+@RequestMapping("/user")
 @RestController
 public class UserController {
 
@@ -14,28 +15,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/user")
+    @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.findAll();
     }
 
-    @GetMapping(value = "/user/{id}")
+    @GetMapping(value = "{id}")
     public UserDto getUser(@PathVariable Long id) {
         return userService.findById(id);
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping
     public UserDto postUser(@RequestBody NewUserDto user) throws NoSuchAlgorithmException {
         return userService.createUser(user);
     }
 
-    @PutMapping(value = "/user")
+    @PutMapping
     public UserDto putUser(@RequestBody NewUserDto user) throws NoSuchAlgorithmException {
         return userService.updateUser(user);
     }
 
-
-    @DeleteMapping(value = "/user/{id}")
+    @DeleteMapping(value = "{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
     }

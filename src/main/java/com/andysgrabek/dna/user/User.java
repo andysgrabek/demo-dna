@@ -16,7 +16,7 @@ public class User {
         this.id = id;
     }
 
-    public User(String login, String password, String name, Date creationDate) {
+    public User(String login, byte[] password, String name, Date creationDate) {
         this.login = login;
         this.password = password;
         this.name = name;
@@ -27,7 +27,7 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String login;
-    private String password;
+    private byte[] password;
     private String name;
     private Date creationDate;
 
@@ -35,7 +35,7 @@ public class User {
     private Set<JobOffer> jobOffers;
 
 
-    public void setPassword(String password) {
+    public void setPassword(byte[] password) {
         this.password = password;
     }
 
@@ -55,7 +55,7 @@ public class User {
         return login;
     }
 
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
