@@ -1,9 +1,10 @@
 package com.andysgrabek.dna.user;
 
 import com.andysgrabek.dna.joboffer.JobOffer;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -26,9 +27,13 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @NotBlank
     private String login;
+    @NotNull
     private byte[] password;
+    @NotBlank
     private String name;
+    @NotNull
     private Date creationDate;
 
     @OneToMany(mappedBy = "user")

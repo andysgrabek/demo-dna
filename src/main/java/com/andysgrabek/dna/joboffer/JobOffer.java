@@ -3,6 +3,8 @@ package com.andysgrabek.dna.joboffer;
 import com.andysgrabek.dna.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -13,10 +15,17 @@ public class JobOffer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @NotNull
     private JobOfferCategory category;
+
+    @NotNull
     private Date startDate;
+
+    @NotNull
     private Date endDate;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name="user", nullable = false)
     private User user;

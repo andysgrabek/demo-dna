@@ -3,6 +3,7 @@ package com.andysgrabek.dna.user;
 import com.andysgrabek.dna.utility.Utility;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;

@@ -4,6 +4,7 @@ import com.andysgrabek.dna.user.User;
 import com.andysgrabek.dna.user.UserDto;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -17,7 +18,7 @@ public class JobOfferService {
         this.jobOfferRepository = jobOfferRepository;
     }
 
-    public JobOfferDto createOffer(JobOfferDto jobOffer) {
+    public JobOfferDto createOffer(JobOfferDto jobOffer) throws ConstraintViolationException {
         var offer = jobOfferRepository.saveAndFlush(
                 new JobOffer(jobOffer.getCategory(), jobOffer.getStartDate(), jobOffer.getEndDate(), new User(jobOffer.getUser().getId()))
         );
