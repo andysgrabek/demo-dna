@@ -1,9 +1,7 @@
 package com.andysgrabek.dna.user;
 
-import com.andysgrabek.dna.utility.Utility;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolationException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
@@ -12,9 +10,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository<Long> userRepository;
+    private final PasswordService passwordService;
 
-    public UserService(UserRepository<Long> userRepository) {
+    public UserService(UserRepository<Long> userRepository, PasswordService passwordService) {
         this.userRepository = userRepository;
+        this.passwordService = passwordService;
     }
 
     public List<UserDto> findAll() {
@@ -31,7 +31,8 @@ public class UserService {
     }
 
     public UserDto createUser(NewUserDto user) throws NoSuchAlgorithmException {
-        var newUser = new User(user.getLogin(), Utility.hashPassword(user.getPassword()), user.getName(), new Date());
+        var salt = passwordService.generateSalt();
+        var newUser = new User(user.getLogin(), passwordService.hashPassword(user.getPassword(), salt), user.getName(), new Date(), salt);
         var createdUser = userRepository.saveAndFlush(newUser);
         return new UserDto(createdUser.getId(), createdUser.getName(), createdUser.getCreationDate());
     }
@@ -39,7 +40,7 @@ public class UserService {
     public UserDto updateUser(NewUserDto user) throws NoSuchAlgorithmException {
         var u = userRepository.findById(user.getId()).orElseThrow();
         u.setName(user.getName());
-        u.setPassword(Utility.hashPassword(user.getPassword()));
+        u.setPassword(passwordService.hashPassword(user.getPassword(), u.getSalt()));
         var updatedUser = userRepository.save(u);
         return new UserDto(updatedUser.getId(), updatedUser.getName(), updatedUser.getCreationDate());
     }

@@ -17,7 +17,7 @@ public class User {
         this.id = id;
     }
 
-    public User(String login, byte[] password, String name, Date creationDate) {
+    public User(String login, byte[] password, String name, Date creationDate, byte[] salt) {
         this.login = login;
         this.password = password;
         this.name = name;
@@ -35,6 +35,8 @@ public class User {
     private String name;
     @NotNull
     private Date creationDate;
+    @NotNull
+    private byte[] salt;
 
     @OneToMany(mappedBy = "user")
     private Set<JobOffer> jobOffers;
@@ -74,5 +76,9 @@ public class User {
 
     public Set<JobOffer> getJobOffers() {
         return jobOffers;
+    }
+
+    public byte[] getSalt() {
+        return salt;
     }
 }
